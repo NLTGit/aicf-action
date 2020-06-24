@@ -1,0 +1,48 @@
+name: 'AICF GitHub Action'
+description: 'Runs AICF via GitHub Actions.'
+author: 'AICF Team <aicf@nltgis.com>'
+branding:
+  icon: 'terminal'
+  color: 'blue'
+inputs:
+  tfcommand:
+    description: TF sub command to run
+    required: true
+  terraformcloudtoken:
+    description: Terraform Cloud Token
+    required: true
+  fugueenvironmentid:
+    description: Fugue Environment ID
+    required: true
+  fugueclientid:
+    description: Fugue Client ID
+    required: true
+  fugueclientsecret:
+    description: Fugue Client secret
+    required: true
+  cloudprovider:
+    description: Cloud provider TF will deploy to
+    required: true
+  terraformsha256:
+    description: Sha256 hash of TF binary
+    default: '602d2529aafdaa0f605c06adb7c72cfb585d8aa19b3f4d8d189b42589e27bf11'
+    required: true
+  terraformversion:
+    description: TF version
+    default: '0.12.24'
+    required: true
+  intervalinseconds:
+    description: Fugue scan interval
+    default: '86400'
+    required: true
+  regulaversion:
+    description: Version of Regula binary
+    default: '0.3.0'
+    required: true
+  opaversion:
+    description: Version of Open Policy Agent
+    default: '0.18.0'
+    required: true
+runs:
+  using: 'docker'
+  image: './Dockerfile'
