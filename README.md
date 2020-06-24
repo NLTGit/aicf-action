@@ -8,29 +8,53 @@ The Automated Infrastructure Compliance Framework is an open-source integrated p
 * Post-deployment AWS/Azure drift detection using Fugue.co
 * Terraform for Infrastructure-as-Code deployments
 
-## Technical Summary
-AICF is the confluence of several technologies and tools such as Open Policy Agent, Terraform and Fugue. It can be build upon any CI/CD toolset of one's choosing. Currently, we have examples of AICF that are built on 1) AWS Codepipeline and AWS Codebuild and 2) Github actions. Use of each detailed below.
-
-## GitHub Actions Deployment/installation overview
-GitHub Actions is essentailly GitHub's implementation of continuous integration (CI) and continuous deployment (CD) tools. They help you automate your software development workflows and are executed directly in the repo of one's choosing. One develops an Action in a public repo and publishes to the GitHub Marketplace. Then, someone creates a workflow yaml file for that action in the top level of their repo. Actions can be triggered pretty much in any number of ways that one can perform git commands on a repo such as push to a branch, commiting to a brach, create a pull request, creating an issue in a repo's project, etc. One glaring feature, not yet available, is the capability to manually trigger an action.
-
-We've worked around this by specifying the action trigger in the example workflow on a push to a non-default branch such as "deployment". Therefore your "master" brunch won't clutter with commits that are used to trigger actions.
-
-To implement the AICF action please visint the aicf-action marketplace page at: 
-The readme for the aicf-action is located at:
-
-
 # AICF docker action
 
-This action prints "Hello World" or "Hello" + the name of a person to greet to the log.
+This GitHub Action executes an AICF run which runs a pre-deployment policy check against one's terraform infrastructure as code, deploys the terraform code in a cloud provider (aws, azure or gcp) and enables drifit detection upon completion of cloud resource build out. One glaring feature, not yet available, is the capability to manually trigger an action.
+
+We've worked around this by specifying the action trigger in the example workflow on a push to a non-default branch, i.e. "deployment". Therefore your "master" branch won't clutter with commits that are used to trigger actions.
+
+To gain a better understanding of the AICF and how it can be an effective in tool for your organization, please visit: https://aifc.nltgis.com
+<br />
+<br />
 
 ## Inputs
 
-### `who-to-greet`
+### `tfcommand`
+**Required** Terraform sub command to run.
 
-**Required** The name of the person to greet. Default `"World"`.
+### `cloudprovider`
+**Required** Cloud provider TF will deploy to.
 
-## Secrets (must be predefined in repo settings)
+### `terraformcloudtoken`
+**Required** Terraform Cloud Token. Also a secret in next section.
+
+### `fugueenvironmentid`
+**Required** Fugue Environment ID. Also a secret in next section.
+
+### `fugueclientid`
+**Required** Fugue Client ID. Also a secret in next section.
+
+### `fugueclientsecret`
+**Required** Fugue Client secret. Also a secret in next section.
+
+### `terraformsha256`
+**Required** Sha256 hash of TF binary. Default `602d2529aafdaa0f605c06adb7c72cfb585d8aa19b3f4d8d189b42589e27bf11`.
+
+### `terraformversion`
+**Required** TF version. Default `0.12.24`.
+
+### `intervalinseconds`
+**Required** Fugue scan interval in seconds. Default `86400`.
+
+### `regulaversion`
+**Required** Version of Regula binary, Default `0.3.0`.
+
+### `opaversion`
+**Required** Version of Open Policy Agent. Default `0.18.0`.
+<br />
+
+## Secrets (must be predefined in GitHub repo settings)
 
 ### `TERRAFORMCLOUDTOKEN`
 Terraform cloud token
@@ -43,10 +67,10 @@ Fugue Client ID
 
 ### `FUGUECLIENTSECRET`
 Fugue Client Secret
+<br />
 
 ## Example usage
-  
-    name: AICF run v1
+
     # This workflow is triggered on pushes to the repository's deployment branch.
     on:
     push:
@@ -72,7 +96,7 @@ Fugue Client Secret
                 fugueenvironmentid: ${{ secrets.FUGUEENVIRONMENTID }}
                 fugueclientid: ${{ secrets.FUGUECLIENTID }}
                 fugueclientsecret: ${{ secrets.FUGUECLIENTSECRET }}
-
+<br />
 
 ## Contributing
 1) Clone repo  
@@ -81,5 +105,4 @@ Fugue Client Secret
 
 ## Contact  
 New Light Technologies, Inc.   
-Carl Alleyne - carl.alleyne@nltgis.com  
-
+Carl Alleyne - carl.alleyne@nltgis.com
