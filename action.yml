@@ -1,4 +1,4 @@
-name: 'AICF GitHub Action'
+name: 'AICF Action'
 description: 'Runs AICF via GitHub Actions.'
 author: 'AICF Team <aicf@nltgis.com>'
 branding:
