@@ -10,11 +10,13 @@ The Automated Infrastructure Compliance Framework is an open-source integrated p
 
 # AICF docker action
 
-This GitHub Action executes an AICF run which runs a pre-deployment policy check against one's terraform infrastructure as code, deploys the terraform code in a cloud provider (aws, azure or gcp) and enables drifit detection upon completion of cloud resource build out. One glaring feature, not yet available, is the capability to manually trigger an action.
+This GitHub Action executes an AICF run which runs a pre-deployment policy check against one's terraform infrastructure as code, deploys the terraform code in a cloud provider (aws, azure or gcp) and enables drifit detection upon completion of cloud resource build out. One glaring feature, not yet available, is the capability to manually trigger an action.  
 
-We've worked around this by specifying the action trigger in the example workflow on a push to a non-default branch, i.e. "deployment". Therefore your "master" branch won't clutter with commits that are used to trigger actions.
+We've worked around this by specifying the action trigger in the example workflow on a push to a non-default branch, i.e. "deployment". Therefore your "master" branch won't clutter with commits that are used to trigger actions.  
 
-To gain a better understanding of the AICF and how it can be an effective in tool for your organization, please visit: https://aifc.nltgis.com
+**Please ensure all of your Terraform "*.tf" files are in a repo top level folder called `terraform`.**    
+
+To gain a better understanding of the AICF and how it can be an effective in tool for your organization, please visit: https://aifc.nltgis.com.  
 <br />
 <br />
 

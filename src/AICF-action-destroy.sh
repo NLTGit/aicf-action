@@ -5,7 +5,7 @@ function aicfDestroy {
     # TF destroy
     export TF_CLI_CONFIG_FILE="/root/.terraform.rc"
     
-    cd $GITHUB_WORKSPACE
+    cd $GITHUB_WORKSPACE/terraform
     echo -e "\nTurn off Fugue drift detection.\n"
     curl -X PATCH "https://api.riskmanager.fugue.co/v0/environments/${INPUT_FUGUEENVIRONMENTID}" -u ${INPUT_FUGUECLIENTID}:${INPUT_FUGUECLIENTSECRET} -d '{"baseline_id": "","remediation": false}' && sleep 10
     terraform init -no-color
