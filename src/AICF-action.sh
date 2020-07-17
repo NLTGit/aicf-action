@@ -16,7 +16,7 @@ function aicfApply {
 
     case "${INPUT_CLOUDPROVIDER}" in
         aws)
-          opa eval --format pretty --input tfplan.json --data /usr/bin/regula/lib --data /usr/bin/regula/rules/aws --data /usr/bin/regula/examples/aws 'data.fugue.regula.report' | tee evaluate
+          opa eval --format pretty --input tfplan.json --data /usr/bin/regula/lib --data /usr/bin/regula/rules/aws --data /usr/bin/regula/examples/aws/tag_all_resources.rego 'data.fugue.regula.report' | tee evaluate
           ;;
         gcp)
           opa eval --format pretty --input tfplan.json --data /usr/bin/regula/lib --data /usr/bin/regula/rules/gcp 'data.fugue.regula.report' | tee evaluate
