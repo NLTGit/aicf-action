@@ -16,7 +16,7 @@ function aicfApply {
 
     case "${INPUT_CLOUDPROVIDER}" in
         aws)
-          opa eval --format pretty --input tfplan.json --data /usr/bin/regula/lib --data /usr/bin/regula/rules/aws --data /usr/bin/regula/examples/aws/tag_all_resources.rego 'data.fugue.regula.report' | tee evaluate
+          opa eval --format pretty --input tfplan.json --data /usr/bin/regula/lib --data /usr/bin/regula/rules/tf/aws --data /usr/bin/regula/examples/aws/tag_all_resources.rego --data /usr/bin/regula/examples/aws/useast1_only.rego 'data.fugue.regula.report' | tee evaluate
           ;;
         gcp)
           opa eval --format pretty --input tfplan.json --data /usr/bin/regula/lib --data /usr/bin/regula/rules/gcp 'data.fugue.regula.report' | tee evaluate
@@ -30,8 +30,8 @@ function aicfApply {
           ;;
     esac
     
-    TERRAFORM_VALID=$(jq -r '.summary.valid' "evaluate")
-    if [ "$TERRAFORM_VALID" == "true" ]; then echo -e "\nTerraform resources plan PASSES OPA authorization!\n"; else echo -e "\n!!! Terraform resources plan FAILS OPA authorization !!!\n" && exit 1; fi
+    TERRAFORM_FAILED=$(jq -r '.summary.rule_results.FAIL' "evaluate")
+    if (("$TERRAFORM_FAILED" > 0)); then echo -e '\n!!! Terraform resources plan FAILS OPA authorization !!!\n' && exit 1; else echo -e '\nTerraform resources plan PASSES OPA authorization!!\n' && exit 0; fi
 
     # TF apply, Fugue scan and re-baselining
     echo -e "\nTurn off Fugue drift detection.\n"

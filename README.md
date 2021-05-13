@@ -41,19 +41,19 @@ To gain a better understanding of the AICF and how it can be an effective in too
 **Required** Fugue Client secret. Also a secret in next section.
 
 ### `terraformsha256`
-**Required** Sha256 hash of TF binary. Default `602d2529aafdaa0f605c06adb7c72cfb585d8aa19b3f4d8d189b42589e27bf11`.
+**Required** Sha256 hash of TF binary. Default `5ce5834fd74e3368ad7bdaac847f973e66e61acae469ee86b88da4c6d9f933d4`.
 
 ### `terraformversion`
-**Required** TF version. Default `0.12.24`.
+**Required** TF version. Default `0.15.3`.
 
 ### `intervalinseconds`
 **Required** Fugue scan interval in seconds. Default `86400`.
 
 ### `regulaversion`
-**Required** Version of Regula binary, Default `0.3.0`.
+**Required** Version of Regula binary, Default `0.8.0`.
 
 ### `opaversion`
-**Required** Version of Open Policy Agent. Default `0.18.0`.
+**Required** Version of Open Policy Agent. Default `0.28.0`.
 <br />
 
 ## Secrets (must be predefined in GitHub repo settings)
