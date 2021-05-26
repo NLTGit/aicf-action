@@ -23,6 +23,10 @@ inputs:
   cloudprovider:
     description: Cloud provider TF will deploy to
     required: true
+  tf_workdir:
+    description: Working directory of terraform files in relation to top level repo directory
+    default: 'terraform'
+    required: true
   terraformsha256:
     description: Sha256 hash of TF binary
     default: '5ce5834fd74e3368ad7bdaac847f973e66e61acae469ee86b88da4c6d9f933d4'
