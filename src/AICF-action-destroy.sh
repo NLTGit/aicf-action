@@ -8,6 +8,7 @@ function aicfDestroy {
     cd $GITHUB_WORKSPACE/terraform
     echo -e "\nTurn off Fugue drift detection.\n"
     curl -X PATCH "https://api.riskmanager.fugue.co/v0/environments/${INPUT_FUGUEENVIRONMENTID}" -u ${INPUT_FUGUECLIENTID}:${INPUT_FUGUECLIENTSECRET} -d '{"baseline_id": "","remediation": false}' && sleep 10
+    cd $GITHUB_WORKSPACE/${INPUT_TF_WORKDIR}
     terraform init -no-color
     terraform destroy -auto-approve -no-color
     fugueRescan

@@ -40,6 +40,9 @@ To gain a better understanding of the AICF and how it can be an effective in too
 ### `fugueclientsecret`
 **Required** Fugue Client secret. Also a secret in next section.
 
+### `tf_workdir`
+**Required** Working directory of terraform files in relation to top level repo directory. Default `terraform`.
+
 ### `terraformsha256`
 **Required** Sha256 hash of TF binary. Default `5ce5834fd74e3368ad7bdaac847f973e66e61acae469ee86b88da4c6d9f933d4`.
 
@@ -94,6 +97,7 @@ Fugue Client Secret
                 tfcommand: apply
                 # cloudprovider {aws, azure, gps}
                 cloudprovider: aws
+                tf_workdir: "ecs-fargate"
                 terraformcloudtoken: ${{ secrets.TERRAFORMCLOUDTOKEN }}
                 fugueenvironmentid: ${{ secrets.FUGUEENVIRONMENTID }}
                 fugueclientid: ${{ secrets.FUGUECLIENTID }}

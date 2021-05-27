@@ -10,7 +10,7 @@ function aicfApply {
 
     # Action
     # TF plan and OPA evaluation
-    cd $GITHUB_WORKSPACE/terraform
+    cd $GITHUB_WORKSPACE/${INPUT_TF_WORKDIR}
     terraform init -no-color && terraform destroy -auto-approve -no-color 
     terraform plan --out tfplan.binary -no-color && terraform show -json tfplan.binary -no-color > tfplan.json
 
