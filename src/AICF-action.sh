@@ -31,7 +31,7 @@ function aicfApply {
     esac
     
     TERRAFORM_FAILED=$(jq -r '.summary.rule_results.FAIL' "evaluate")
-    if (("$TERRAFORM_FAILED" > 0)); then echo -e '\n!!! Terraform resources plan FAILS OPA authorization !!!\n' && exit 1; else echo -e '\nTerraform resources plan PASSES OPA authorization!!\n' && exit 0; fi
+    if (("$TERRAFORM_FAILED" == 0)); then echo -e '\nTerraform resources plan PASSES OPA authorization!!\n' && exit 0; else echo -e '\n!!! Terraform resources plan FAILS OPA authorization !!!\n' && exit 1; fi
 
     # TF apply, Fugue scan and re-baselining
     echo -e "\nTurn off Fugue drift detection.\n"

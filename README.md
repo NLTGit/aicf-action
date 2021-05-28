@@ -28,18 +28,6 @@ To gain a better understanding of the AICF and how it can be an effective in too
 ### `cloudprovider`
 **Required** Cloud provider TF will deploy to.
 
-### `terraformcloudtoken`
-**Required** Terraform Cloud Token. Also a secret in next section.
-
-### `fugueenvironmentid`
-**Required** Fugue Environment ID. Also a secret in next section.
-
-### `fugueclientid`
-**Required** Fugue Client ID. Also a secret in next section.
-
-### `fugueclientsecret`
-**Required** Fugue Client secret. Also a secret in next section.
-
 ### `tf_workdir`
 **Required** Working directory of terraform files in relation to top level repo directory. Default `terraform`.
 
@@ -59,28 +47,32 @@ To gain a better understanding of the AICF and how it can be an effective in too
 **Required** Version of Open Policy Agent. Default `0.28.0`.
 <br />
 
-## Secrets (must be predefined in GitHub repo settings)
+## Secrets (must be predefined in GitHub repo secrets settings)
 
 ### `TERRAFORMCLOUDTOKEN`
-Terraform cloud token
+**Required** Terraform cloud token
 
 ### `FUGUEENVIRONMENTID`
-Fugue Environement specific ID
+**Required** Fugue Environement specific ID
 
 ### `FUGUECLIENTID`
-Fugue Client ID
+**Required** Fugue Client ID
 
 ### `FUGUECLIENTSECRET`
-Fugue Client Secret
+**Required** Fugue Client Secret
 <br />
 
 ## Example usage
 
     # This workflow is triggered on pushes to the repository's deployment branch.
+    name: Terraform-apply
     on:
     push:
         branches:
-        - deployment
+        - master
+    pull_request:
+        branches: 
+        - master
 
     jobs:
     build:
@@ -89,19 +81,28 @@ Fugue Client Secret
         name: Run
         steps:
         - name: Repo checkout
-            uses: actions/checkout@master
+        uses: actions/checkout@v2
         - name: AICF GitHub Action
-            uses: nltgit/aicf-action@master
-            with:
-                # tfcommands {apply or destroy}
-                tfcommand: apply
-                # cloudprovider {aws, azure, gps}
-                cloudprovider: aws
-                tf_workdir: "ecs-fargate"
-                terraformcloudtoken: ${{ secrets.TERRAFORMCLOUDTOKEN }}
-                fugueenvironmentid: ${{ secrets.FUGUEENVIRONMENTID }}
-                fugueclientid: ${{ secrets.FUGUECLIENTID }}
-                fugueclientsecret: ${{ secrets.FUGUECLIENTSECRET }}
+        uses: nltgit/aicf-action@v1.22
+        with:
+            # tfcommands {apply or destroy}
+            tfcommand: apply
+            # cloudprovider {aws, azure, gps}
+            cloudprovider: aws
+            tf_workdir: "ecs-fargate"
+            terraformcloudtoken: ${{ secrets.TF_API_TOKEN }}
+            fugueenvironmentid: ${{ secrets.FUGUEENVIRONMENTID }}
+            fugueclientid: ${{ secrets.FUGUECLIENTID }}
+            fugueclientsecret: ${{ secrets.FUGUECLIENTSECRET }}
+        env:
+            TF_VAR_AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            TF_VAR_AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            TF_VAR_POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+            TF_VAR_DNS_ACCESS_KEY: ${{ secrets.DNS_ACCESS_KEY }}
+            TF_VAR_DNS_SECRET_KEY: ${{ secrets.DNS_SECRET_KEY }}
+            TF_VAR_DATASTORE_READONLY_PASSWORD: ${{ secrets.DATASTORE_READONLY_PASSWORD }}
+            TF_VAR_CKAN_SMTP_USER: ${{ secrets.CKAN_SMTP_USER }}
+            TF_VAR_CKAN_SMTP_PASSWORD: ${{ secrets.CKAN_SMTP_PASSWORD }}
 <br />
 
 ## Contributing
