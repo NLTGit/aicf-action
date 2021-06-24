@@ -16,7 +16,7 @@ We've worked around this by specifying the action trigger in the example workflo
 
 **Please ensure all of your Terraform "*.tf" files are in a repo top level folder called `terraform`.**    
 
-To gain a better understanding of the AICF and how it can be an effective in tool for your organization, please visit: https://aifc.nltgis.com.  
+To gain a better understanding of the AICF and how it can be an effective in tool for your organization, please visit: https://aicf.nltgis.com.  
 <br />
 <br />
 
