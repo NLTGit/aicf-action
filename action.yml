@@ -29,11 +29,11 @@ inputs:
     required: true
   terraformsha256:
     description: Sha256 hash of TF binary
-    default: '5ce5834fd74e3368ad7bdaac847f973e66e61acae469ee86b88da4c6d9f933d4'
+    default: '7329f887cc5a5bda4bedaec59c439a4af7ea0465f83e3c1b0f4d04951e1181f4'
     required: true
   terraformversion:
     description: TF version
-    default: '0.15.3'
+    default: '1.0.2'
     required: true
   intervalinseconds:
     description: Fugue scan interval

@@ -11,7 +11,7 @@ function aicfApply {
     # Action
     # TF plan and OPA evaluation
     cd $GITHUB_WORKSPACE/${INPUT_TF_WORKDIR}
-    terraform init -no-color && terraform apply -refresh-only -auto-approve -no-color 
+    terraform init -no-color && terraform plan -refresh-only -no-color
     terraform plan --out tfplan.binary -no-color && terraform show -json tfplan.binary -no-color > tfplan.json
 
     case "${INPUT_CLOUDPROVIDER}" in
