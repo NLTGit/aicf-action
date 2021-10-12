@@ -29,11 +29,11 @@ inputs:
     required: true
   terraformsha256:
     description: Sha256 hash of TF binary
-    default: '7329f887cc5a5bda4bedaec59c439a4af7ea0465f83e3c1b0f4d04951e1181f4'
+    default: 'a73459d406067ce40a46f026dce610740d368c3b4a3d96591b10c7a577984c2e'
     required: true
   terraformversion:
     description: TF version
-    default: '1.0.2'
+    default: '1.0.8'
     required: true
   intervalinseconds:
     description: Fugue scan interval
@@ -41,7 +41,7 @@ inputs:
     required: true
   regulaversion:
     description: Version of Regula binary
-    default: '0.8.0'
+    default: '1.5.0'
     required: true
   opaversion:
     description: Version of Open Policy Agent
