@@ -41,7 +41,7 @@ inputs:
     required: true
   regulaversion:
     description: Version of Regula binary
-    default: '1.5.0'
+    default: '1.6.0'
     required: true
   opaversion:
     description: Version of Open Policy Agent
