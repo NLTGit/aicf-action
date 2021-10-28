@@ -112,4 +112,4 @@ To gain a better understanding of the AICF and how it can be an effective in too
 
 ## Contact  
 New Light Technologies, Inc.   
-Carl Alleyne - carl.alleyne@nltgis.com
+aicf@nltgis.com
