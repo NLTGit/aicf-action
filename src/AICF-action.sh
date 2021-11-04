@@ -16,13 +16,13 @@ function aicfApply {
 
     case "${INPUT_CLOUDPROVIDER}" in
         aws)
-          opa eval --format pretty --input tfplan.json --data /usr/bin/regula/rego/lib --data /usr/bin/regula/rego/rules/tf/aws --data /usr/bin/regula/rego/examples/aws/tag_all_resources.rego --data /usr/bin/regula/rego/examples/aws/useast1_only.rego 'data.fugue.regula.report' | tee evaluate
+          opa eval --format pretty --input tfplan.json --data /usr/bin/regula/rego/lib --data /usr/bin/regula/rego/rules/tf/aws --data /usr/bin/regula/rego/examples/aws/tag_all_resources.rego --data /usr/bin/regula/rego/examples/aws/useast1_only.rego --data waivers.rego 'data.fugue.regula.report' | tee evaluate
           ;;
         gcp)
-          opa eval --format pretty --input tfplan.json --data /usr/bin/regula/rego/lib --data /usr/bin/regula/rego/rules/tf/gcp 'data.fugue.regula.report' | tee evaluate
+          opa eval --format pretty --input tfplan.json --data /usr/bin/regula/rego/lib --data /usr/bin/regula/rego/rules/tf/gcp --data waivers.rego 'data.fugue.regula.report' | tee evaluate
           ;;
         azure)
-          opa eval --format pretty --input tfplan.json --data /usr/bin/regula/rego/lib --data /usr/bin/regula/rego/rules/tf/azure 'data.fugue.regula.report' | tee evaluate
+          opa eval --format pretty --input tfplan.json --data /usr/bin/regula/rego/lib --data /usr/bin/regula/rego/rules/tf/azure --data waivers.rego 'data.fugue.regula.report' | tee evaluate
           ;;
         *)
           echo -e "Error: Must provide a valid value for cloud provider"
