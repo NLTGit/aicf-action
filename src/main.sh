@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 
 function main {
   # Source the other files to gain access to their functions
@@ -9,12 +9,12 @@ function main {
 
   case "${INPUT_TFCOMMAND}" in
     apply)
-      installTF
-      aicfApply ${*}
+      sudo installTF
+      sudo aicfApply ${*}
       ;;
     destroy)
-      installTF
-      aicfDestroy ${*}
+      sudo installTF
+      sudo aicfDestroy ${*}
       ;;
     *)
       echo -e "Error: Must provide a valid value for terraform_subcommand"
