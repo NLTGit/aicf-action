@@ -29,7 +29,7 @@ inputs:
     required: true
   terraformsha256:
     description: Sha256 hash of TF binary
-    default: '3e330ce4c8c0434cdd79fe04ed6f6e28e72db44c47ae50d01c342c8a2b05d331'
+    default: '281344ed7e2b49b3d6af300b1fe310beed8778c56f3563c4d60e5541c0978f1b'
     required: true
   terraformversion:
     description: TF version
@@ -45,7 +45,7 @@ inputs:
     required: true
   opaversion:
     description: Version of Open Policy Agent
-    default: '0.37.2'
+    default: '0.40.0'
     required: true
 runs:
   using: 'docker'
