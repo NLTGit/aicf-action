@@ -45,7 +45,7 @@ inputs:
     required: true
   opaversion:
     description: Version of Open Policy Agent
-    default: '0.37.2'
+    default: '0.40.0'
     required: true
 runs:
   using: 'docker'
