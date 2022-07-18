@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 function aicfDestroy {
     source /src/AICF-action-fugueRescan.sh

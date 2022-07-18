@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 function fugueRescan {
     cd $GITHUB_WORKSPACE
