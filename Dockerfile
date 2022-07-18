@@ -1,5 +1,6 @@
-FROM alpine:3.14.2
+FROM alpine:3
 
+RUN apk upgrade --no-cache
 RUN ["/bin/sh", "-c", "apk add --update --no-cache bash ca-certificates curl git jq openssh libc6-compat"]
 
 #RUN apk upgrade --no-cache && \
@@ -8,4 +9,4 @@ RUN ["/bin/sh", "-c", "apk add --update --no-cache bash ca-certificates curl git
 
 COPY ["src", "/src/"]
 
-ENTRYPOINT ["/src/main.sh"]
+ENTRYPOINT ["sudo","/src/main.sh"]
