@@ -9,4 +9,4 @@ RUN ["/bin/sh", "-c", "apk add --update --no-cache bash ca-certificates curl git
 
 COPY ["src", "/src/"]
 
-ENTRYPOINT ["sudo","/src/main.sh"]
+ENTRYPOINT ["/src/main.sh"]

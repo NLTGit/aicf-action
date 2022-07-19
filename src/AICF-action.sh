@@ -4,9 +4,9 @@ function aicfApply {
     source /src/AICF-action-fugueRescan.sh
     export TF_CLI_CONFIG_FILE="/root/.terraform.rc"
     # Install OPA bin
-    curl -L -o opa https://github.com/open-policy-agent/opa/releases/download/v${INPUT_OPAVERSION}/opa_linux_amd64 && chmod +x opa && mv opa /usr/bin
+    curl -L -o opa https://github.com/open-policy-agent/opa/releases/download/v${INPUT_OPAVERSION}/opa_linux_amd64 && chmod +x opa && mv opa ~/bin
     # Install regula script and libraries.
-    mkdir -p /usr/bin/regula && curl -L "https://github.com/fugue/regula/archive/v${INPUT_REGULAVERSION}.tar.gz" | tar -xz --strip-components=1 -C /usr/bin/regula
+    mkdir -p ~/regula && curl -L "https://github.com/fugue/regula/archive/v${INPUT_REGULAVERSION}.tar.gz" | tar -xz --strip-components=1 -C ~/regula
 
     # Action
     # TF plan and OPA evaluation
@@ -16,13 +16,13 @@ function aicfApply {
 
     case "${INPUT_CLOUDPROVIDER}" in
         aws)
-          opa eval --format pretty --input tfplan.json --data /usr/bin/regula/rego/lib --data /usr/bin/regula/rego/rules/tf/aws --data /usr/bin/regula/rego/examples/aws/useast1_only.rego --data waivers.rego 'data.fugue.regula.report' | tee evaluate
+          opa eval --format pretty --input tfplan.json --data ~/regula/rego/lib --data ~/regula/rego/rules/tf/aws --data ~/regula/rego/examples/aws/useast1_only.rego --data waivers.rego 'data.fugue.regula.report' | sudo tee evaluate
           ;;
         gcp)
-          opa eval --format pretty --input tfplan.json --data /usr/bin/regula/rego/lib --data /usr/bin/regula/rego/rules/tf/gcp --data waivers.rego 'data.fugue.regula.report' | tee evaluate
+          opa eval --format pretty --input tfplan.json --data ~/regula/rego/lib --data ~/regula/rego/rules/tf/gcp --data waivers.rego 'data.fugue.regula.report' | sudo tee evaluate
           ;;
         azure)
-          opa eval --format pretty --input tfplan.json --data /usr/bin/regula/rego/lib --data /usr/bin/regula/rego/rules/tf/azure --data waivers.rego 'data.fugue.regula.report' | tee evaluate
+          opa eval --format pretty --input tfplan.json --data ~/regula/rego/lib --data ~/regula/rego/rules/tf/azure --data waivers.rego 'data.fugue.regula.report' | sudo tee evaluate
           ;;
         *)
           echo -e "Error: Must provide a valid value for cloud provider"
