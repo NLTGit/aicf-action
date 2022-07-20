@@ -4,7 +4,7 @@ function aicfApply {
     source /src/AICF-action-fugueRescan.sh
     export TF_CLI_CONFIG_FILE="/root/.terraform.rc"
     # Install OPA bin
-    curl -L -o opa https://github.com/open-policy-agent/opa/releases/download/v${INPUT_OPAVERSION}/opa_linux_amd64 && chmod +x opa && mv opa /usr/bin
+    curl -L -o opa https://github.com/open-policy-agent/opa/releases/download/v${INPUT_OPAVERSION}/opa_linux_amd64_static && chmod +x opa && mv opa /usr/bin
     # Install regula script and libraries.
     mkdir -p /usr/bin/regula && curl -L "https://github.com/fugue/regula/archive/v${INPUT_REGULAVERSION}.tar.gz" | tar -xz --strip-components=1 -C /usr/bin/regula
 
