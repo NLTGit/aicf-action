@@ -7,6 +7,3 @@ RUN apk upgrade --no-cache && \
 COPY ["src", "/src/"]
 
 ENTRYPOINT ["/src/main.sh"]
-
-
-Error loading shared library ld-linux-x86-64.so.2
