@@ -1,115 +1,49 @@
-<img src="images/NLT_AICFLLogo.jpg">
+# ⚠️ DEPRECATED — AICF Action v1 (aicf-action)
 
-**For help, email aicf@nltgis.com**
-
-## What is AICF?
-The Automated Infrastructure Compliance Framework is an open-source integrated pipeline for deploying and monitoring infrastructure. Specific features include:
-* Pre-deployment policy checking using Open Policy Agent
-* Post-deployment AWS/Azure drift detection using Fugue.co
-* Terraform for Infrastructure-as-Code deployments
-
-# AICF docker action
-
-This GitHub Action executes an AICF run which runs a pre-deployment policy check against one's terraform infrastructure as code, deploys the terraform code in a cloud provider (aws, azure or gcp) and enables drifit detection upon completion of cloud resource build out. One glaring feature, not yet available, is the capability to manually trigger an action.  
-
-We've worked around this by specifying the action trigger in the example workflow on a push to a non-default branch, i.e. "deployment". Therefore your "master" branch won't clutter with commits that are used to trigger actions.  
-
-**Please ensure all of your Terraform "*.tf" files are in a repo top level folder called `terraform`.**    
-
-To gain a better understanding of the AICF and how it can be an effective in tool for your organization, please visit: https://newlighttechnologies.com/cybersecurity-services.  
-<br />
-<br />
-
-## Inputs
-
-### `tfcommand`
-**Required** Terraform sub command to run.
-
-### `cloudprovider`
-**Required** Cloud provider TF will deploy to.
-
-### `tf_workdir`
-**Required** Working directory of terraform files in relation to top level repo directory. Default `terraform`.
-
-### `terraformsha256`
-**Required** Sha256 hash of TF binary. Default `5ce5834fd74e3368ad7bdaac847f973e66e61acae469ee86b88da4c6d9f933d4`.
-
-### `terraformversion`
-**Required** TF version. Default `0.15.3`.
-
-### `intervalinseconds`
-**Required** Fugue scan interval in seconds. Default `86400`.
-
-### `regulaversion`
-**Required** Version of Regula binary, Default `0.8.0`.
-
-### `opaversion`
-**Required** Version of Open Policy Agent. Default `0.28.0`.
-<br />
-
-## Secrets (must be predefined in GitHub repo secrets settings)
-
-### `TERRAFORMCLOUDTOKEN`
-**Required** Terraform cloud token
-
-### `FUGUEENVIRONMENTID`
-**Required** Fugue Environement specific ID
-
-### `FUGUECLIENTID`
-**Required** Fugue Client ID
-
-### `FUGUECLIENTSECRET`
-**Required** Fugue Client Secret
-<br />
-
-## Example usage
-
-    # This workflow is triggered on pushes to the repository's deployment branch.
-    name: Terraform-apply
-    on:
-    push:
-        branches:
-        - master
-    pull_request:
-        branches: 
-        - master
-
-    jobs:
-    build:
-        # Job name is Run
-        runs-on: ubuntu-latest
-        name: Run
-        steps:
-        - name: Repo checkout
-        uses: actions/checkout@v2
-        - name: AICF GitHub Action
-        uses: nltgit/aicf-action@v1.22
-        with:
-            # tfcommands {apply or destroy}
-            tfcommand: apply
-            # cloudprovider {aws, azure, gps}
-            cloudprovider: aws
-            tf_workdir: "ecs-fargate"
-            terraformcloudtoken: ${{ secrets.TF_API_TOKEN }}
-            fugueenvironmentid: ${{ secrets.FUGUEENVIRONMENTID }}
-            fugueclientid: ${{ secrets.FUGUECLIENTID }}
-            fugueclientsecret: ${{ secrets.FUGUECLIENTSECRET }}
-        env:
-            TF_VAR_AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            TF_VAR_AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            TF_VAR_POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-            TF_VAR_DNS_ACCESS_KEY: ${{ secrets.DNS_ACCESS_KEY }}
-            TF_VAR_DNS_SECRET_KEY: ${{ secrets.DNS_SECRET_KEY }}
-            TF_VAR_DATASTORE_READONLY_PASSWORD: ${{ secrets.DATASTORE_READONLY_PASSWORD }}
-            TF_VAR_CKAN_SMTP_USER: ${{ secrets.CKAN_SMTP_USER }}
-            TF_VAR_CKAN_SMTP_PASSWORD: ${{ secrets.CKAN_SMTP_PASSWORD }}
-<br />
-
-## Contributing
-1) Clone repo  
-2) Create new branch, make changes and commit and push to remote i.e. `git push --set-upstream origin new-branch`  
-3) Log into GitHub and create pull request to the master branch
-
-## Contact  
-New Light Technologies, Inc.   
-aicf@nltgis.com
+> **This GitHub Action is no longer maintained and has been retired.**
+> > Deprecated: February 2026 | New Light Technologies, Inc. (NLT)
+> >
+> > ---
+> >
+> > ## AICF v2.0 is now available
+> >
+> > The AICF GitHub Action has been completely redesigned as part of **AICF v2.0**, rebuilt from the ground up on a modern serverless-native, cloud-agnostic architecture.
+> >
+> > **This repository is preserved for historical reference only. No new development will occur here. Do not use this action in new projects.**
+> >
+> > ### Why this action was retired
+> >
+> > This action depends on **Fugue.co** for post-deployment drift detection. Fugue.co was acquired by Snyk in 2023 and its standalone platform was subsequently shut down. The action cannot function without Fugue credentials, making it non-operational.
+> >
+> > Additionally, this action depends on **Regula** for policy rules, which was abandoned following the Fugue shutdown.
+> >
+> > At the time of retirement (February 2026):
+> > - All 4 Fugue secret inputs (FUGUEENVIRONMENTID, FUGUECLIENTID, FUGUECLIENTSECRET, intervalinseconds) point to a dead service
+> > - - Regula v0.8.0 is abandoned with no replacement support
+> >   - - OPA v0.28.0 is 3+ years out of date
+> >     - - Terraform v0.15.3 is 3+ years out of date
+> >       - - Zero external forks; effectively no active community usage
+> >        
+> >         - ### What AICF v2.0 replaces this with
+> >        
+> >         - - **Drift Detection:** AWS Config + AWS Security Hub (native, FedRAMP GovCloud-compatible, no vendor dependency)
+> >           - - **Policy Rules:** OPA v1.14 + Conftest + Checkov v3 (all actively maintained)
+> >             - - **IaC:** SST v4 — serverless, cloud-native, AWS/Azure/GCP deployable
+> >               - - **Compliance:** FedRAMP, CMMC 2.0, NIST SP 800-53, SOC2, PII, CIS
+> >                 - - **Output:** OSCAL v1.2, SARIF, CycloneDX SBOM
+> >                  
+> >                   - ---
+> >
+> > ## Original v1 Description
+> >
+> > The AICF GitHub Action executed an AICF run which ran a pre-deployment policy check against Terraform infrastructure as code, deployed the terraform code in a cloud provider (AWS, Azure or GCP) and enabled drift detection upon completion of cloud resource build out.
+> >
+> > **NOTE:** This action is no longer functional due to Fugue.co and Regula being discontinued.
+> >
+> > ---
+> >
+> > ## Contact
+> >
+> > New Light Technologies, Inc. (NLT)
+> > aicf@nltgis.com
+> > https://newlighttechnologies.com/cybersecurity-services
